@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Mon Nov  3 12:30:47 2014 Antoine Plaskowski
-** Last update Mon Nov  3 15:10:30 2014 Antoine Plaskowski
+** Last update Mon Nov  3 15:23:27 2014 Antoine Plaskowski
 */
 
 #include	<stdio.h>
@@ -27,5 +27,8 @@ int		main(void)
       fprintf(stdout, "Error can't create a event queue\n");
       return (1);      
     }
+  printf("%d", wl_display_get_fd(display));
+  wl_event_queue_destroy(event_q);
+  wl_display_disconnect(display);
   return (0);
 }
