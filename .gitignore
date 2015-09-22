@@ -1,5 +1,6 @@
-tail
 *.o
 *~
 *#
 *.bak
+*.dpd
+libmlw.a

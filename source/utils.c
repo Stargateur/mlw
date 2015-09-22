@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Tue Sep 22 22:12:47 2015 Antoine Plaskowski
-** Last update Tue Sep 22 23:22:07 2015 Antoine Plaskowski
+** Last update Tue Sep 22 23:32:47 2015 Antoine Plaskowski
 */
 
 #include	<stdbool.h>
@@ -28,25 +28,14 @@ static bool	set_cloexec(int fd)
 
 static int	tmpfile_create_cloexec(char *tmpname)
 {
-  if (tmpname == NULL)
-    return (-1);
-#ifdef HAVE_MKOSTEMP
-  int		fd = mkostemp(tmpname, O_CLOEXEC);
-  if (fd == -1 || unlink(tmpname) == -1)
-    {
-      perror(NULL);
-      close(fd);
-      return (-1);
-    }
-#else
   int		fd = mkstemp(tmpname);
+
   if (fd == -1 || set_cloexec(fd) == true || unlink(tmpname) == -1)
     {
       perror(NULL);
       close(fd);
       return (-1);
     }
-#endif
   return (fd);
 }
 
@@ -76,7 +65,10 @@ static char	*get_tmpname(void)
 
 int	create_anon_file(off_t size)
 {
-  char	* tmpname = get_tmpname();
+  char	*tmpname = get_tmpname();
+
+  if (tmpname == NULL)
+    return (-1);
   int	fd = tmpfile_create_cloexec(tmpname);
 
   free(tmpname);

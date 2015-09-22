@@ -1,87 +1,86 @@
 ##
-## Makefile for wayland in /home/plasko_a/programation/epitech/mlw
+## Makefile for Makefile in /home/plasko_a/projet/epitech/mlw
 ## 
 ## Made by Antoine Plaskowski
 ## Login   <plasko_a@epitech.eu>
 ## 
-## Started on  Mon Nov  3 12:29:58 2014 Antoine Plaskowski
-## Last update Tue Sep 22 22:24:02 2015 Antoine Plaskowski
+## Started on  Tue Sep 22 23:29:00 2015 Antoine Plaskowski
+## Last update Tue Sep 22 23:32:29 2015 Antoine Plaskowski
 ##
 
-NAME			=	wayland
+NAME		=	libmlw.a
 
-CC			=	gcc
+CC		?=	gcc
 
-RM			=	rm -f
+AR		=	ar
 
-MKDIR			=	mkdir -p
+RM		=	rm
 
-RMDIR			=	rmdir --ignore-fail-on-non-empty
+DEBUG		?=	no
 
-ECHO			=	/bin/echo
+RANLIB		=	ranlib
 
-DEBUG			=	no
+LEVEL		?=	3
 
-LEVEL			=	3
+COLOR		?=	no
 
-LIB			=	-l wayland-client
+LIB		=
 
-INCLUDE			=	-I include/
+INCLUDE		=	-I include
 
-CFLAGS			=	-Wall -Wextra -O$(LEVEL)
-CFLAGS			+=	-pedantic
-CFLAGS			+=	$(INCLUDE)
-CFLAGS			+=	-fdiagnostics-color
-#CFLAGS			+=	-D _GNU_SOURCE
+CFLAGS		+=	-Wall -Wextra -O$(LEVEL)
+CFLAGS		+=	-ansi -pedantic
+CFLAGS		+=	$(INCLUDE)
+#CFLAGS          +=      -D _POSIX_SOURCE -D _GNU_SOURCE -D _XOPEN_SOURCE
 
 ifeq ($(CC), clang)
-CFLAGS			+=	-Weverything
+CFLAGS		+=	-Weverything -Wno-padded -Wno-disabled-macro-expansion
 endif
 
 ifneq ($(DEBUG), no)
-CFLAGS			+=	-g
+CFLAGS		+=	-g
 endif
 
-LDFLAGS			=	$(LIB)
+ifneq ($(COLOR), no)
+CFLAGS		+=	-fdiagnostics-color
+endif
+
+LDFLAGS		=	$(LIB)
 
 ifeq ($(DEBUG), no)
-LDFLAGS			+=	-s
+LDFLAGS		+=	-s
 endif
 
-DFLAGS			=	-Y -w80 $(INCLUDE)
+include			source.mk
 
-SRC			=
+DPD		=	$(SRC:.c=.dpd)
 
-include				source.mk
+OBJ		=	$(SRC:.c=.o)
 
-OBJ			=	$(SRC:.c=.o)
+all		:	$(NAME)
 
-all			:	$(NAME)
+$(NAME)		:	$(OBJ)
+			$(AR) rc $(NAME) $(OBJ)
+			$(RANLIB) $(NAME)
 
-$(NAME)			:	$(OBJ)
-				$(CC) $(OBJ) -o $(NAME) $(LDFLAGS)
+clean		:
+			$(RM) -f $(OBJ)
+			$(RM) -f $(DPD)
 
-clean			:
-				$(RM) $(OBJ)
+fclean		:	clean
+			$(RM) -f $(NAME)
 
-fclean			:
-				$(RM) $(OBJ)
-				$(RM) $(NAME)
+re		:	fclean
+			$(MAKE) -C . all
 
-re			:	fclean
-				${MAKE} -C . all
+%.dpd		:	%.c
+			$(CC) -MM $(<) -o $(@) $(CFLAGS) -MT $(<:.c=.o)
 
-depend			:
-				makedepend $(SRC) $(DFLAGS)
+%.o		:	%.c
+			$(CC) -c $(<) -o $(@) $(CFLAGS)
 
-%.o			:	%.c
-				$(CC) -c $< -o $@ $(CFLAGS)
+.PHONY		:	all clean fclean re %.dpd %.o
 
-%.s			:	%.c
-				$(CC) -S $< -o $@ $(CFLAGS)
+.SUFFIXES	:	.o.c .dpd.c
 
-.PHONY			:	all clean fclean re %.o %.s
-
-.SUFFIXES		:	.o.c .s.c
-
-# DO NOT DELETE
+include			$(DPD)
