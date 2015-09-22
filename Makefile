@@ -5,7 +5,7 @@
 ## Login   <plasko_a@epitech.eu>
 ## 
 ## Started on  Tue Sep 22 23:29:00 2015 Antoine Plaskowski
-## Last update Tue Sep 22 23:32:29 2015 Antoine Plaskowski
+## Last update Tue Sep 22 23:35:06 2015 Antoine Plaskowski
 ##
 
 NAME		=	libmlw.a
@@ -29,7 +29,7 @@ LIB		=
 INCLUDE		=	-I include
 
 CFLAGS		+=	-Wall -Wextra -O$(LEVEL)
-CFLAGS		+=	-ansi -pedantic
+CFLAGS		+=	-pedantic
 CFLAGS		+=	$(INCLUDE)
 #CFLAGS          +=      -D _POSIX_SOURCE -D _GNU_SOURCE -D _XOPEN_SOURCE
 
