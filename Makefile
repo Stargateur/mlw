@@ -5,7 +5,7 @@
 ## Login   <plasko_a@epitech.eu>
 ## 
 ## Started on  Mon Nov  3 12:29:58 2014 Antoine Plaskowski
-## Last update Mon Nov  3 12:42:07 2014 Antoine Plaskowski
+## Last update Tue Sep 22 22:24:02 2015 Antoine Plaskowski
 ##
 
 NAME			=	wayland
@@ -26,11 +26,13 @@ LEVEL			=	3
 
 LIB			=	-l wayland-client
 
-INCLUDE			=	-Iinclude/
+INCLUDE			=	-I include/
 
 CFLAGS			=	-Wall -Wextra -O$(LEVEL)
 CFLAGS			+=	-pedantic
 CFLAGS			+=	$(INCLUDE)
+CFLAGS			+=	-fdiagnostics-color
+#CFLAGS			+=	-D _GNU_SOURCE
 
 ifeq ($(CC), clang)
 CFLAGS			+=	-Weverything
@@ -66,7 +68,8 @@ fclean			:
 				$(RM) $(OBJ)
 				$(RM) $(NAME)
 
-re			:	fclean all
+re			:	fclean
+				${MAKE} -C . all
 
 depend			:
 				makedepend $(SRC) $(DFLAGS)
