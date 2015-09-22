@@ -5,12 +5,12 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Mon Nov  3 12:30:47 2014 Antoine Plaskowski
-** Last update Sun Dec 21 00:36:58 2014 Antoine Plaskowski
+** Last update Wed Sep 23 00:18:25 2015 Antoine Plaskowski
 */
 
 #include	<stdio.h>
 #include	<wayland-client.h>
-#include	"my_typedef.h"
+#include	"wayland_typedef.h"
 /*
 t_event_q	*create_queue(t_display *display)
 {
@@ -25,13 +25,13 @@ t_event_q	*create_queue(t_display *display)
 }
 */
 
-int		set_global_register(t_display *display)
+int		set_global_register(wl_display *display)
 {
   static const struct wl_registry_listener registry_listener = {
     .global = NULL,
     .global_remove = NULL
   };
-  t_registry	*registry;
+  wl_registry	*registry;
 
   registry = wl_display_get_registry(display);
   
@@ -39,7 +39,7 @@ int		set_global_register(t_display *display)
 
 int		main(void)
 {
-  t_display	*display;
+  wl_display	*display;
 
   if ((display = wl_display_connect(NULL)) == NULL)
     {
