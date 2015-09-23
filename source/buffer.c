@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Tue Sep 22 22:12:47 2015 Antoine Plaskowski
-** Last update Wed Sep 23 00:22:07 2015 Antoine Plaskowski
+** Last update Wed Sep 23 00:39:11 2015 Antoine Plaskowski
 */
 
 #include	<wayland-client.h>
@@ -114,8 +114,9 @@ t_buffer	*buffer_create(wl_shm *shm, size_t width, size_t height)
     return (NULL);
   buffer->width = width;
   buffer->height = height;
-  buffer->stride = buffer->width * 4; // 4 bytes per pixel
+  buffer->stride = buffer->width * 4;
   buffer->size = buffer->stride * buffer->height;
+
   buffer->fd = create_anon_file((off_t)buffer->size);
   if (buffer->fd == -1)
     {
@@ -139,4 +140,15 @@ t_buffer	*buffer_create(wl_shm *shm, size_t width, size_t height)
 
   wl_shm_pool_destroy(pool);
   return (buffer);
+}
+
+void		free_buffer(t_buffer *buffer)
+{
+  if (buffer != NULL)
+    {
+      if (munmap(buffer->data, buffer->size) == -1)
+	perror("munmap");
+      if (close(buffer->fd) == -1)
+	perror("close");
+    }
 }
