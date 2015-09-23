@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Mon Nov  3 12:30:47 2014 Antoine Plaskowski
-** Last update Wed Sep 23 03:57:06 2015 Antoine Plaskowski
+** Last update Wed Sep 23 07:54:50 2015 Antoine Plaskowski
 */
 
 #include	<stdio.h>
@@ -55,7 +55,6 @@ t_mlw		*create_mlw(void)
       return (NULL);
     }
   wl_registry_add_listener(wl_display_get_registry(mlw->display), &registry_listener, mlw);
-  wl_display_dispatch(mlw->display);
   wl_display_roundtrip(mlw->display);
   if (mlw->compositor == NULL)
     fprintf(stderr, "Cannot find compositor object.\n");

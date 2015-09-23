@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Tue Sep 22 22:12:47 2015 Antoine Plaskowski
-** Last update Wed Sep 23 04:20:38 2015 Antoine Plaskowski
+** Last update Wed Sep 23 07:44:53 2015 Antoine Plaskowski
 */
 
 #include	<wayland-client.h>
@@ -136,7 +136,7 @@ t_buffer	*create_buffer(wl_shm *shm, size_t width, size_t height)
 
   struct wl_shm_pool *pool = wl_shm_create_pool(shm, buffer->fd, (int32_t)buffer->size);
   buffer->buffer = wl_shm_pool_create_buffer(pool, 0, (int32_t)buffer->width, (int32_t)buffer->height,
-					     (int32_t)buffer->stride, WL_SHM_FORMAT_XRGB8888);
+					     (int32_t)buffer->stride, WL_SHM_FORMAT_ARGB8888);
 
   wl_shm_pool_destroy(pool);
   return (buffer);
