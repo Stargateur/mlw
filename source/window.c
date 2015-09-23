@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Wed Sep 23 00:35:20 2015 Antoine Plaskowski
-** Last update Wed Sep 23 02:33:45 2015 Antoine Plaskowski
+** Last update Wed Sep 23 03:05:32 2015 Antoine Plaskowski
 */
 
 #include	<stdio.h>
@@ -62,6 +62,9 @@ static const struct wl_callback_listener frame_listener = {
 
 t_window	*window_create(wl_compositor *compositor, wl_shell *shell, char *title)
 {
+  if (compositor == NULL || shell == NULL)
+    return (NULL);
+
   t_window	*window = malloc(sizeof(*window));
 
   if (window == NULL)
@@ -88,7 +91,8 @@ t_window	*window_create(wl_compositor *compositor, wl_shell *shell, char *title)
       return (NULL);
     }
   wl_shell_surface_set_toplevel(window->shell_surface);
-  wl_shell_surface_set_title(window->shell_surface, title);
+  if (title != NULL)
+    wl_shell_surface_set_title(window->shell_surface, title);
   wl_shell_surface_add_listener(window->shell_surface, &shell_surface_listener, window);
   wl_callback_add_listener(wl_surface_frame(window->surface), NULL, window);
 
