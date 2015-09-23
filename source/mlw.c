@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Mon Nov  3 12:30:47 2014 Antoine Plaskowski
-** Last update Wed Sep 23 03:06:44 2015 Antoine Plaskowski
+** Last update Wed Sep 23 03:10:00 2015 Antoine Plaskowski
 */
 
 #include	<stdio.h>
@@ -57,7 +57,16 @@ t_mlw		*create_mlw(void)
   wl_registry_add_listener(wl_display_get_registry(mlw->display), &registry_listener, mlw);
   wl_display_dispatch(mlw->display);
   wl_display_roundtrip(mlw->display);
-  return (mlw);
+  if (mlw->compositor == NULL)
+    fprintf(stderr, "Cannot find compositor object.\n");
+  else if (mlw->shm == NULL)
+    fprintf(stderr, "Cannot find shm object.\n");
+  else if (mlw->shell == NULL)
+    fprintf(stderr, "Cannot find shell object.\n");
+  else
+    return (mlw);
+  free(mlw);
+  return (NULL);
 }
 
 void		free_mlx(t_mlw *mlw)
