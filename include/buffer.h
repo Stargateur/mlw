@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Tue Sep 22 23:53:23 2015 Antoine Plaskowski
-** Last update Wed Sep 23 00:20:33 2015 Antoine Plaskowski
+** Last update Wed Sep 23 04:05:36 2015 Antoine Plaskowski
 */
 
 #ifndef		BUFFER_H_
@@ -19,12 +19,15 @@ struct		s_buffer
 {
   wl_shm	*shm;
   wl_buffer	*buffer;
-  void		*data;
+  int32_t	*data;
   size_t	width;
   size_t	height;
   size_t	stride;
   size_t	size;
   int		fd;
 };
+
+t_buffer	*create_buffer(wl_shm *shm, size_t width, size_t height);
+void		free_buffer(t_buffer *buffer);
 
 #endif		/* !BUFFER_H_ */

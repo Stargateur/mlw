@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Wed Sep 23 00:35:20 2015 Antoine Plaskowski
-** Last update Wed Sep 23 03:05:32 2015 Antoine Plaskowski
+** Last update Wed Sep 23 04:22:06 2015 Antoine Plaskowski
 */
 
 #include	<stdio.h>
@@ -13,9 +13,6 @@
 #include	<stdint.h>
 #include	<wayland-client.h>
 #include	"window.h"
-
-static const struct wl_callback_listener frame_listener;
-static const wl_shell_surface_listener shell_surface_listener;
 
 static void shell_surface_listener_handle_ping(void *data, wl_shell_surface *shell_surface, uint32_t serial)
 {
@@ -44,23 +41,7 @@ static const wl_shell_surface_listener shell_surface_listener = {
   .popup_done = &shell_surface_listener_handle_popup_done,
 };
 
-static void	frame_listener_handle_done(void *data, wl_callback *callback, uint32_t time)
-{
-  t_window	*window = data;
-
-  (void)time;  
-  if (window->espose != NULL)
-    window->espose(window->data);
-
-  wl_callback_destroy(callback);
-  wl_callback_add_listener(wl_surface_frame(window->surface), &frame_listener, data);
-}
-
-static const struct wl_callback_listener frame_listener = {
-  .done = frame_listener_handle_done,
-};
-
-t_window	*window_create(wl_compositor *compositor, wl_shell *shell, char *title)
+t_window	*create_window(wl_compositor *compositor, wl_shell *shell, char *title)
 {
   if (compositor == NULL || shell == NULL)
     return (NULL);
@@ -94,10 +75,6 @@ t_window	*window_create(wl_compositor *compositor, wl_shell *shell, char *title)
   if (title != NULL)
     wl_shell_surface_set_title(window->shell_surface, title);
   wl_shell_surface_add_listener(window->shell_surface, &shell_surface_listener, window);
-  wl_callback_add_listener(wl_surface_frame(window->surface), NULL, window);
-
-  window->espose = NULL;
-  window->data = NULL;
   return (window);
 }
 
@@ -109,4 +86,11 @@ void	free_window(t_window *window)
     }
 }
 
-
+void	put_buffer_to_window(t_window *window, t_buffer *buffer)
+{
+  if (window == NULL || buffer == NULL)
+    return;
+  wl_surface_damage(window->surface, 0, 0, (int32_t)buffer->width,(int32_t)buffer->height);
+  wl_surface_attach(window->surface, buffer->buffer, 0, 0);
+  wl_surface_commit(window->surface);
+}

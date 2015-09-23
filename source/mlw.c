@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Mon Nov  3 12:30:47 2014 Antoine Plaskowski
-** Last update Wed Sep 23 03:10:00 2015 Antoine Plaskowski
+** Last update Wed Sep 23 03:57:06 2015 Antoine Plaskowski
 */
 
 #include	<stdio.h>
@@ -69,7 +69,7 @@ t_mlw		*create_mlw(void)
   return (NULL);
 }
 
-void		free_mlx(t_mlw *mlw)
+void		free_mlw(t_mlw *mlw)
 {
   wl_display_disconnect(mlw->display);
 }

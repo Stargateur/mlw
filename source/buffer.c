@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Tue Sep 22 22:12:47 2015 Antoine Plaskowski
-** Last update Wed Sep 23 00:39:11 2015 Antoine Plaskowski
+** Last update Wed Sep 23 04:20:38 2015 Antoine Plaskowski
 */
 
 #include	<wayland-client.h>
@@ -106,7 +106,7 @@ static int	create_anon_file(off_t size)
   return (fd);
 }
 
-t_buffer	*buffer_create(wl_shm *shm, size_t width, size_t height)
+t_buffer	*create_buffer(wl_shm *shm, size_t width, size_t height)
 {
   t_buffer	*buffer = malloc(sizeof(*buffer));
 
