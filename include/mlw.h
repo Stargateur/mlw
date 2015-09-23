@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Wed Sep 23 02:43:36 2015 Antoine Plaskowski
-** Last update Wed Sep 23 03:55:37 2015 Antoine Plaskowski
+** Last update Wed Sep 23 06:35:27 2015 Antoine Plaskowski
 */
 
 #ifndef		MLW_H_
@@ -20,7 +20,7 @@ struct		s_mlw
   wl_display	*display;
   wl_compositor	*compositor;
   wl_shm	*shm;
-  wl_shm	*shell;
+  wl_shell	*shell;
 };
 
 t_mlw		*create_mlw(void);

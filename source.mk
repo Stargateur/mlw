@@ -5,7 +5,7 @@
 ## Login   <plasko_a@epitech.eu>
 ## 
 ## Started on  Mon Nov  3 12:30:27 2014 Antoine Plaskowski
-## Last update Wed Sep 23 02:55:36 2015 Antoine Plaskowski
+## Last update Wed Sep 23 06:28:36 2015 Antoine Plaskowski
 ##
 
 PATH_SRC	=	source/
@@ -13,3 +13,4 @@ PATH_SRC	=	source/
 SRC		=	$(PATH_SRC)mlw.c
 SRC		+=	$(PATH_SRC)buffer.c
 SRC		+=	$(PATH_SRC)window.c
+SRC		+=	$(PATH_SRC)frame.c

@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Wed Sep 23 00:35:20 2015 Antoine Plaskowski
-** Last update Wed Sep 23 04:22:06 2015 Antoine Plaskowski
+** Last update Wed Sep 23 05:18:07 2015 Antoine Plaskowski
 */
 
 #include	<stdio.h>
@@ -84,13 +84,4 @@ void	free_window(t_window *window)
     {
       free(window);
     }
-}
-
-void	put_buffer_to_window(t_window *window, t_buffer *buffer)
-{
-  if (window == NULL || buffer == NULL)
-    return;
-  wl_surface_damage(window->surface, 0, 0, (int32_t)buffer->width,(int32_t)buffer->height);
-  wl_surface_attach(window->surface, buffer->buffer, 0, 0);
-  wl_surface_commit(window->surface);
 }
