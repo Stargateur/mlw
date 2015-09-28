@@ -5,7 +5,7 @@
 ** Login   <antoine.plaskowski@epitech.eu>
 ** 
 ** Started on  Wed Sep 23 05:18:11 2015 Antoine Plaskowski
-** Last update Wed Sep 23 06:49:28 2015 Antoine Plaskowski
+** Last update Mon Sep 28 06:01:01 2015 Antoine Plaskowski
 */
 
 #include	<stdio.h>
@@ -33,6 +33,8 @@ static const struct wl_callback_listener frame_listener = {
 
 t_frame		*create_frame(t_window *window, t_buffer *buffer, void (*fct)(t_frame *data), void *data)
 {
+  if (window == NULL || buffer == NULL || fct == NULL)
+    return (NULL);
   t_frame	*frame = malloc(sizeof(*frame));
 
   if (frame == NULL)
